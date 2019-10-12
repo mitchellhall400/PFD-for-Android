@@ -17,7 +17,6 @@ import android.view.ViewGroup.LayoutParams;
 
 import static java.lang.Math.abs;
 
-
 public class MainActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
@@ -51,6 +50,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+    }
+    public static float[] addToArray(float[] history, float element){
+        float[] newArray = history;
+        newArray[0] = element;
+        for(int i = 1; i < history.length-1;i++){
+            newArray[i] = history[i-1];
+        }
+        return newArray;
+    }
+    public static float filter(float[] history){
+        float average = 0;
+        for(int i = 0; i < history.length-1;i++) {
+            average += history[i];
+        }
+        return (average/history.length);
     }
 
     @Override
