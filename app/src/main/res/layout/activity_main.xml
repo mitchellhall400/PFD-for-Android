@@ -11,17 +11,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00BCD4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/artHorizGround"
-        android:layout_width="wrap_content"
+        android:layout_width="1000dp"
         android:layout_height="960px"
         android:background="#FF5722"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/space"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="150dp" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="311dp"
+        android:layout_height="237dp"
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:layout_editor_absoluteX="50dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
