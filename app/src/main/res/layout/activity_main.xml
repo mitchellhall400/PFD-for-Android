@@ -53,9 +53,9 @@
 
     <ImageView
         android:id="@+id/altitudeScroll"
-        android:layout_width="39dp"
+        android:layout_width="42dp"
         android:layout_height="306dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:cropToPadding="false"
@@ -64,9 +64,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/altitude" />
 
+    <ImageView
+        android:id="@+id/airspeedScroll"
+        android:layout_width="42dp"
+        android:layout_height="306dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="100dp"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        android:scrollY="1700px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/airspeed" />
+
     <TextView
         android:id="@+id/altitudeVal"
-        android:layout_width="39dp"
+        android:layout_width="42dp"
         android:layout_height="24dp"
         android:background="#000000"
         android:fadeScrollbars="false"
@@ -76,6 +90,45 @@
         app:layout_constraintEnd_toEndOf="@+id/altitudeScroll"
         app:layout_constraintStart_toStartOf="@+id/altitudeScroll"
         app:layout_constraintTop_toTopOf="@+id/altitudeScroll" />
+
+    <TextView
+        android:id="@+id/altitudeHead"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:autoText="false"
+        android:background="#000000"
+        android:fadeScrollbars="false"
+        android:text="ALT"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/altitudeScroll"
+        app:layout_constraintEnd_toEndOf="@+id/altitudeScroll"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="@+id/altitudeScroll" />
+
+    <TextView
+        android:id="@+id/airspeedVal"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:background="#000000"
+        android:fadeScrollbars="false"
+        android:text=" 000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/airspeedScroll"
+        app:layout_constraintEnd_toStartOf="@+id/attitude"
+        app:layout_constraintStart_toStartOf="@+id/airspeedScroll"
+        app:layout_constraintTop_toTopOf="@+id/airspeedScroll" />
+
+    <TextView
+        android:id="@+id/airspeedHead"
+        android:layout_width="42dp"
+        android:layout_height="24dp"
+        android:background="#000000"
+        android:fadeScrollbars="false"
+        android:text="GS"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/airspeedScroll"
+        app:layout_constraintEnd_toStartOf="@+id/attitude"
+        app:layout_constraintStart_toStartOf="@+id/airspeedScroll" />
 
     <ImageView
         android:id="@+id/attitudeArrow"
