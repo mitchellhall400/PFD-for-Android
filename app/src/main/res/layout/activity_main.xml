@@ -22,7 +22,7 @@
         android:id="@+id/artHorizGround"
         android:layout_width="10000dp"
         android:layout_height="500dp"
-        android:background="#FF5722"
+        android:background="#975512"
         app:layout_constraintBottom_toBottomOf="@+id/space"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
