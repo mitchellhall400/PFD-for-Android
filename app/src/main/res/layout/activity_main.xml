@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <View
         android:id="@+id/artHorizGround"
@@ -71,5 +71,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/arrow" />
+
+    <ImageView
+        android:id="@+id/altitudeScroll"
+        android:layout_width="39dp"
+        android:layout_height="306dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@+id/artHorizSky"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/altitude" />
+
+    <TextView
+        android:id="@+id/altitudeVal"
+        android:layout_width="41dp"
+        android:layout_height="24dp"
+        android:background="#000000"
+        android:text=" 3421 "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/altitudeScroll"
+        app:layout_constraintEnd_toEndOf="@+id/altitudeScroll"
+        app:layout_constraintStart_toStartOf="@+id/altitudeScroll"
+        app:layout_constraintTop_toTopOf="@+id/altitudeScroll" />
+
+    <ImageView
+        android:id="@+id/attitude"
+        android:layout_width="247dp"
+        android:layout_height="193dp"
+        app:layout_constraintEnd_toEndOf="@+id/artHorizSky"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/attitude" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
