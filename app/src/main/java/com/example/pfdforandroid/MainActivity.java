@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
                 /* Set Roll */
                 artHorizGround.setRotation(event.values[2]);
-
+                artHorizGround.requestLayout();
             }
 
             @Override

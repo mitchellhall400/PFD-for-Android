@@ -106,4 +106,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/attitude" />
 
+    <ImageView
+        android:id="@+id/attitudeArrow"
+        android:layout_width="20dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/space2"
+        app:layout_constraintEnd_toEndOf="@+id/artHorizSky"
+        app:layout_constraintStart_toStartOf="@+id/artHorizSky"
+        app:srcCompat="@drawable/arrow_head" />
+
+    <Space
+        android:id="@+id/space2"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/artHorizSky"
+        app:layout_constraintTop_toBottomOf="@+id/attitude" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
