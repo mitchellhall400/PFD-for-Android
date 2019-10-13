@@ -1,6 +1,5 @@
 package com.example.pfdforandroid;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
@@ -12,11 +11,6 @@ import android.hardware.Sensor;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.app.Activity;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.Space;
@@ -53,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
                 /* Set Heading */
                 double headingVal = Math.pow((Math.pow(event.values[0], 2) + Math.pow(event.values[1], 2) + Math.pow(event.values[2], 2)),0.5);
-                heading.setRotation(event.values[0]*-1);
+                heading.setRotation(event.values[2]);
 
                 /* Set Pitch */
                 artHorizGround.getLayoutParams().height = (int)(event.values[1] * 30) + 4100;
@@ -87,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
-
     }
 
     public static void addToArray(float[] history, float element){
