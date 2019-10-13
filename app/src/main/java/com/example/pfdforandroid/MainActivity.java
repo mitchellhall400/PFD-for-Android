@@ -37,12 +37,11 @@ public class MainActivity extends AppCompatActivity {
         orientationEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                ImageView heading = (ImageView)findViewById(R.id.compass);
-                View artHorizGround = (View)findViewById(R.id.artHorizGround);
-                ImageView attitudeInd = (ImageView)findViewById(R.id.attitudeArrow);
+                ImageView heading = findViewById(R.id.compass);
+                View artHorizGround = findViewById(R.id.artHorizGround);
+                ImageView attitudeInd = findViewById(R.id.attitudeArrow);
 
                 /* Set Heading */
-                double headingVal = Math.pow((Math.pow(event.values[0], 2) + Math.pow(event.values[1], 2) + Math.pow(event.values[2], 2)),0.5);
                 heading.setRotation(event.values[0]*-1);
 
                 /* Set Pitch */
@@ -69,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
         altitudeEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                TextView alt = (TextView)findViewById(R.id.altitudeVal);
+                TextView alt = findViewById(R.id.altitudeVal);
                 String altitudeString="";
                 float altitude = SensorManager.getAltitude((float)1011.6, event.values[0]) * (float)3.281;
-                ImageView altScroll = (ImageView)findViewById(R.id.altitudeScroll);
+                ImageView altScroll = findViewById(R.id.altitudeScroll);
 
                 if((int)altitude-1000<0){
-                    altitudeString = "0"+Integer.toString((int)altitude);
+                    altitudeString = "0"+altitude;
                 }
 
                 alt.setText(altitudeString);
