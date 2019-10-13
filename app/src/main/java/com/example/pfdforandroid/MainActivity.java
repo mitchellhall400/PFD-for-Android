@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 heading.setRotation(event.values[0]*-1);
 
                 /* Set Pitch */
-                artHorizGround.getLayoutParams().height = (int)(event.values[1] * 30) + 4100;
+                artHorizGround.getLayoutParams().height = (int)(event.values[1] * 30) + 4200;
 
                 /* Set Roll */
                 artHorizGround.setRotation(event.values[2]);
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
                 /* Set Attitude */
                 attitudeInd.setPivotX(30);
-                attitudeInd.setPivotY(375);
-                attitudeInd.setRotation((float)(-1 * event.values[2]));
+                attitudeInd.setPivotY(430);
+                attitudeInd.setRotation((float)(-1.3 * event.values[2]));
 
             }
 
