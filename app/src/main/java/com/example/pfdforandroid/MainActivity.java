@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSensorChanged(SensorEvent event) {
                 ImageView heading = (ImageView)findViewById(R.id.compass);
                 View artHorizGround = (View)findViewById(R.id.artHorizGround);
+                ImageView attitudeInd = (ImageView)findViewById(R.id.attitudeArrow);
 
                 /* Set Heading */
                 double headingVal = Math.pow((Math.pow(event.values[0], 2) + Math.pow(event.values[1], 2) + Math.pow(event.values[2], 2)),0.5);
@@ -61,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
                 /* Set Roll */
                 artHorizGround.setRotation(event.values[2]);
                 artHorizGround.requestLayout();
+
+                /* Set Attitude */
+                attitudeInd.setPivotX(0);
+                attitudeInd.setPivotY(250);
+                attitudeInd.setRotation((float)(-1 * event.values[2]));
+
             }
 
             @Override
