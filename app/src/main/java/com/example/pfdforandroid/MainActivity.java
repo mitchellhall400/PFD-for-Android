@@ -68,9 +68,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 TextView alt = (TextView)findViewById(R.id.altitudeVal);
+                String altitudeString="";
                 float altitude = SensorManager.getAltitude((float)1011.6, event.values[0]) * (float)3.281;
-
-                alt.setText(String.format("%04d", altitude).substring(0, 4));
+                if((int)altitude-1000<0){
+                    altitudeString = "0"+Integer.toString((int)altitude);
+                }
+                alt.setText(altitudeString);
             }
 
             @Override
