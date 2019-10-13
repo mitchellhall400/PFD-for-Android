@@ -1,10 +1,7 @@
 package com.example.pfdforandroid;
 
-
+/* Imports */
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ActionBar;
-import android.graphics.Color;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
@@ -12,32 +9,29 @@ import android.hardware.Sensor;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.app.Activity;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.widget.Toast;
 import android.view.View;
-import android.widget.Space;
 import java.lang.String;
-import android.view.ViewGroup.LayoutParams;
+import java.net.URL;
+import java.net.MalformedURLException;
 
-
-import static java.lang.Math.abs;
-
+/* Main Activity Loop */
 public class MainActivity extends AppCompatActivity {
+
+    /* Variable Initializations */
     private SensorManager sensorManager;
     private Sensor altitudeSensor;
     private Sensor orientationSensor;
     private SensorEventListener altitudeEventListener;
     private SensorEventListener orientationEventListener;
+//    String ICAO = "KCID";
+//    String link = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&hoursBeforeNow=2&format=xml&stationString=" + ICAO;
+//    TextView weather = (TextView)findViewById(R.id.weather);
 
-
-    private float[] AltHistory = new float[100];
-
+    /* onCreate Loop */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        /* Initial Setup */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -95,21 +89,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-    }
-
-    public static void addToArray(float[] history, float element){
-        for(int i = history.length-1; i > 0; i--){
-            history[i] = history[i-1];
-        }
-        history[0] = element;
-    }
-
-    public static float filter(float[] history){
-        float average = 0;
-        for(int i = 0; i < history.length-1;i++) {
-            average += history[i];
-        }
-        return (average/history.length);
     }
 
     @Override
