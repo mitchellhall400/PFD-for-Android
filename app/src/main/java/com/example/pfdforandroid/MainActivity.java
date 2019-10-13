@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 import java.lang.String;
-import java.net.URL;
-import java.net.MalformedURLException;
 
 /* Main Activity Loop */
 public class MainActivity extends AppCompatActivity {
@@ -23,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private Sensor orientationSensor;
     private SensorEventListener altitudeEventListener;
     private SensorEventListener orientationEventListener;
-//    String ICAO = "KCID";
-//    String link = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&hoursBeforeNow=2&format=xml&stationString=" + ICAO;
-//    TextView weather = (TextView)findViewById(R.id.weather);
 
     /* onCreate Loop */
     @Override
@@ -77,16 +72,22 @@ public class MainActivity extends AppCompatActivity {
                 TextView alt = (TextView)findViewById(R.id.altitudeVal);
                 String altitudeString="";
                 float altitude = SensorManager.getAltitude((float)1011.6, event.values[0]) * (float)3.281;
+                ImageView altScroll = (ImageView)findViewById(R.id.altitudeScroll);
+
                 if((int)altitude-1000<0){
                     altitudeString = "0"+Integer.toString((int)altitude);
                 }
+
                 alt.setText(altitudeString);
+                altScroll.setScrollY((int)(2500 - (altitude *1.57)));
             }
 
             @Override
             public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
             }
+
+
         };
 
     }

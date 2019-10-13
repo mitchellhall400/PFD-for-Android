@@ -56,8 +56,8 @@
         android:layout_width="39dp"
         android:layout_height="306dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:cropToPadding="false"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="@+id/artHorizSky"
@@ -66,9 +66,10 @@
 
     <TextView
         android:id="@+id/altitudeVal"
-        android:layout_width="41dp"
+        android:layout_width="39dp"
         android:layout_height="24dp"
         android:background="#000000"
+        android:fadeScrollbars="false"
         android:text=" 3421 "
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/altitudeScroll"
@@ -77,21 +78,12 @@
         app:layout_constraintTop_toTopOf="@+id/altitudeScroll" />
 
     <ImageView
-        android:id="@+id/attitude"
-        android:layout_width="313dp"
-        android:layout_height="239dp"
-        android:layout_marginTop="90dp"
-        app:layout_constraintEnd_toEndOf="@+id/artHorizSky"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/attitude" />
-
-    <ImageView
         android:id="@+id/attitudeArrow"
         android:layout_width="22dp"
         android:layout_height="20dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="@+id/artHorizSky"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/artHorizSky"
         app:layout_constraintTop_toTopOf="@+id/attitude"
         app:srcCompat="@drawable/arrow_head" />
@@ -111,7 +103,7 @@
         android:layout_height="800dp"
         app:layout_constraintEnd_toEndOf="@+id/artHorizSky"
         app:layout_constraintStart_toStartOf="@+id/artHorizSky"
-        app:layout_constraintTop_toBottomOf="@+id/horizonTop"
+        app:layout_constraintTop_toTopOf="@+id/artHorizGround"
         app:srcCompat="@drawable/horizon_bottom" />
 
     <ImageView
@@ -133,5 +125,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/arrow" />
+
+    <ImageView
+        android:id="@+id/attitude"
+        android:layout_width="313dp"
+        android:layout_height="239dp"
+        android:layout_marginTop="90dp"
+        app:layout_constraintEnd_toEndOf="@+id/artHorizSky"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/attitude" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
