@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.view.View;
 import java.lang.String;
 
-/* Main Activity Loop */
+/* Definition of MainActivity Class */
 public class MainActivity extends AppCompatActivity {
 
     /* Variable Initializations */
@@ -37,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
         orientationEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
+
+                /* Initialize Variables for Heading*/
                 ImageView heading = findViewById(R.id.compass);
-                View artHorizGround = findViewById(R.id.artHorizGround);
                 ImageView attitudeInd = findViewById(R.id.attitudeArrow);
+                View artHorizGround = findViewById(R.id.artHorizGround);
 
                 /* Set Heading */
-                heading.setRotation(event.values[0]*-1);
+                heading.setRotation(event.values[0] * -1);
 
                 /* Set Pitch */
                 artHorizGround.getLayoutParams().height = (int)(event.values[1] * 30) + 4200;
@@ -59,47 +61,53 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {}       //Nothing needed
         };
 
         /* Altitude  Loop */
         altitudeEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
+
+                /* Initialize Variables for Altitude */
                 TextView alt = findViewById(R.id.altitudeVal);
-                String altitudeString="";
-                float altitude = SensorManager.getAltitude((float)1011.6, event.values[0]) * (float)3.281;
+                String altitudeString= "";
                 ImageView altScroll = findViewById(R.id.altitudeScroll);
 
-                if((int)altitude-1000<0){
-                    altitudeString = "0"+altitude;
+                /* Get Altitude */
+                float altitude = SensorManager.getAltitude((float)1011.6, event.values[0]) * (float)3.281;
+
+                /* Set String to Fill Zeros Up To Four Digits */
+                if((int)altitude < 1000) {
+                    altitudeString = "0" + altitude;
                 }
 
+                /* Set Altitude */
                 alt.setText(altitudeString);
-                altScroll.setScrollY((int)(2500 - (altitude *1.57)));
+                altScroll.setScrollY((int)(2500 - (altitude *1.42)));
             }
 
             @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {}       //Nothing needed
 
 
         };
 
     }
 
+    /* User Defined Functions Outside of MainActivity Class*/
+
+    /* onResume - register event listeners for sensors */
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         sensorManager.registerListener(altitudeEventListener,altitudeSensor,SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(orientationEventListener,orientationSensor,SensorManager.SENSOR_DELAY_FASTEST);
     }
 
+    /* onPause - unregister event listeners for sensors */
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(altitudeEventListener);
         sensorManager.unregisterListener(orientationEventListener);
