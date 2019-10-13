@@ -25,9 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private Sensor accelerometerSensor;
     private Sensor magneticSensor;
     private Sensor altitudeSensor;
+    private Sensor orientationSensor;
     private SensorEventListener accelerometerEventListener;
     private SensorEventListener magneticEventListener;
     private SensorEventListener altitudeEventListener;
+    private SensorEventListener orientationEventListener;
     private Compass compass;
 
 
@@ -42,57 +44,70 @@ public class MainActivity extends AppCompatActivity {
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER_UNCALIBRATED);
         magneticSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         altitudeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        orientationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
 
 
         /* Accelerometer Loop */
-        accelerometerEventListener = new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-                View artHorizGround = (View)findViewById(R.id.artHorizGround);
-                Space space = (Space)findViewById(R.id.space);
+//        accelerometerEventListener = new SensorEventListener() {
+//            @Override
+//            public void onSensorChanged(SensorEvent event) {
+//                View artHorizGround = (View)findViewById(R.id.artHorizGround);
+//                Space space = (Space)findViewById(R.id.space);
+//
+//                /* Set Pitch */
+//                if(event.values[0] > 0) {
+//                    addToArray(PitchHistory, ((event.values[2] * 100) + 1400) - (event.values[0] * 200));
+//                    artHorizGround.getLayoutParams().height = (int) (filter(PitchHistory));
+//                    space.getLayoutParams().height = (int) (filter(PitchHistory)/100);
+//                    space.requestLayout();
+//                    artHorizGround.requestLayout();
+//                }
+//                else {
+//                    addToArray(PitchHistory, ((event.values[2] * 100) + 1400) + (event.values[0] * 40));
+//                    artHorizGround.getLayoutParams().height = (int) (filter(PitchHistory));
+//                    artHorizGround.requestLayout();
+//                }
+//
+//                /* Set Roll */
+//                if(event.values[0] > 0) {
+//                    addToArray(RollHistory, (float) (event.values[0] * 9.5));
+//                    artHorizGround.setRotation((int) (filter(RollHistory)));
+//                    space.setRotation((int) (filter(RollHistory)));
+//                }
+//                else {
+//                    addToArray(RollHistory, (float) (event.values[0] * 9.5));
+//                    artHorizGround.setRotation((int) (filter(RollHistory)));
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//            }
+//        };
 
-                /* Set Pitch */
-                if(event.values[0] > 0) {
-                    addToArray(PitchHistory, ((event.values[2] * 100) + 1400) - (event.values[0] * 200));
-                    artHorizGround.getLayoutParams().height = (int) (filter(PitchHistory));
-                    space.getLayoutParams().height = (int) (filter(PitchHistory)/100);
-                    space.requestLayout();
-                    artHorizGround.requestLayout();
-                }
-                else {
-                    addToArray(PitchHistory, ((event.values[2] * 100) + 1400) + (event.values[0] * 40));
-                    artHorizGround.getLayoutParams().height = (int) (filter(PitchHistory));
-                    artHorizGround.requestLayout();
-                }
-
-                /* Set Roll */
-                if(event.values[0] > 0) {
-                    addToArray(RollHistory, (float) (event.values[0] * 9.5));
-                    artHorizGround.setRotation((int) (filter(RollHistory)));
-                    space.setRotation((int) (filter(RollHistory)));
-                }
-                else {
-                    addToArray(RollHistory, (float) (event.values[0] * 9.5));
-                    artHorizGround.setRotation((int) (filter(RollHistory)));
-                }
-
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-            }
-        };
 
         /* Magnet Heading Loop */
-        magneticEventListener = new SensorEventListener() {
+        orientationEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 ImageView heading = (ImageView)findViewById(R.id.compass);
+                ImageView arrow = (ImageView)findViewById(R.id.arrow);
+                View artHorizGround = (View)findViewById(R.id.artHorizGround);
 
                 /* Set Heading */
                 double headingVal = Math.pow((Math.pow(event.values[0], 2) + Math.pow(event.values[1], 2) + Math.pow(event.values[2], 2)),0.5);
-                heading.setRotation(event.values[1]);
+                heading.setRotation(event.values[2]);
+
+                /* Set Pitch */
+                artHorizGround.getLayoutParams().height = (int)(event.values[1] * 30) + 4100;
+
+                /* Set Roll */
+                artHorizGround.setRotation(event.values[2]);
+
+                arrow.setRotation(event.values[2]);
+
 
             }
 
@@ -101,6 +116,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+
+//        /* Magnet Heading Loop */
+//        magneticEventListener = new SensorEventListener() {
+//            @Override
+//            public void onSensorChanged(SensorEvent event) {
+//                ImageView heading = (ImageView)findViewById(R.id.compass);
+//
+//                /* Set Heading */
+//                double headingVal = Math.pow((Math.pow(event.values[0], 2) + Math.pow(event.values[1], 2) + Math.pow(event.values[2], 2)),0.5);
+//                heading.setRotation(event.values[1]);
+//
+//            }
+//
+//            @Override
+//            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//            }
+//        };
 
         /* Altitude  Loop */
         altitudeEventListener = new SensorEventListener() {
@@ -141,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.registerListener(accelerometerEventListener,accelerometerSensor,SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(magneticEventListener,magneticSensor,SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(altitudeEventListener,magneticSensor,SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(orientationEventListener,orientationSensor,SensorManager.SENSOR_DELAY_FASTEST);
     }
     @Override
     protected void onPause(){
@@ -148,5 +182,6 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.unregisterListener(accelerometerEventListener);
         sensorManager.unregisterListener(magneticEventListener);
         sensorManager.unregisterListener(altitudeEventListener);
+        sensorManager.unregisterListener(orientationEventListener);
     }
 }
