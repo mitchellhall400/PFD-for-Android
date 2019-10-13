@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 artHorizGround.requestLayout();
 
                 /* Set Attitude */
-                attitudeInd.setPivotX(0);
-                attitudeInd.setPivotY(250);
+                attitudeInd.setPivotX(30);
+                attitudeInd.setPivotY(375);
                 attitudeInd.setRotation((float)(-1 * event.values[2]));
 
             }
