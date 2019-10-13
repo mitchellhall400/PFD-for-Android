@@ -28,78 +28,27 @@ import static java.lang.Math.abs;
 
 public class MainActivity extends AppCompatActivity {
     private SensorManager sensorManager;
-    private Sensor accelerometerSensor;
-    private Sensor magneticSensor;
     private Sensor altitudeSensor;
     private Sensor orientationSensor;
-    private SensorEventListener accelerometerEventListener;
-    private SensorEventListener magneticEventListener;
     private SensorEventListener altitudeEventListener;
     private SensorEventListener orientationEventListener;
-    private Compass compass;
 
 
-    private float[] RollHistory = new float[100];
-    private float[] PitchHistory = new float[100];
+    private float[] AltHistory = new float[100];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER_UNCALIBRATED);
-        magneticSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         altitudeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         orientationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-
-
-        /* Accelerometer Loop */
-//        accelerometerEventListener = new SensorEventListener() {
-//            @Override
-//            public void onSensorChanged(SensorEvent event) {
-//                View artHorizGround = (View)findViewById(R.id.artHorizGround);
-//                Space space = (Space)findViewById(R.id.space);
-//
-//                /* Set Pitch */
-//                if(event.values[0] > 0) {
-//                    addToArray(PitchHistory, ((event.values[2] * 100) + 1400) - (event.values[0] * 200));
-//                    artHorizGround.getLayoutParams().height = (int) (filter(PitchHistory));
-//                    space.getLayoutParams().height = (int) (filter(PitchHistory)/100);
-//                    space.requestLayout();
-//                    artHorizGround.requestLayout();
-//                }
-//                else {
-//                    addToArray(PitchHistory, ((event.values[2] * 100) + 1400) + (event.values[0] * 40));
-//                    artHorizGround.getLayoutParams().height = (int) (filter(PitchHistory));
-//                    artHorizGround.requestLayout();
-//                }
-//
-//                /* Set Roll */
-//                if(event.values[0] > 0) {
-//                    addToArray(RollHistory, (float) (event.values[0] * 9.5));
-//                    artHorizGround.setRotation((int) (filter(RollHistory)));
-//                    space.setRotation((int) (filter(RollHistory)));
-//                }
-//                else {
-//                    addToArray(RollHistory, (float) (event.values[0] * 9.5));
-//                    artHorizGround.setRotation((int) (filter(RollHistory)));
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//            }
-//        };
-
 
         /* Magnet Heading Loop */
         orientationEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 ImageView heading = (ImageView)findViewById(R.id.compass);
-                ImageView arrow = (ImageView)findViewById(R.id.arrow);
                 View artHorizGround = (View)findViewById(R.id.artHorizGround);
 
                 /* Set Heading */
@@ -112,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 /* Set Roll */
                 artHorizGround.setRotation(event.values[2]);
 
-                arrow.setRotation(event.values[2]);
-
-
             }
 
             @Override
@@ -123,31 +69,14 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-//        /* Magnet Heading Loop */
-//        magneticEventListener = new SensorEventListener() {
-//            @Override
-//            public void onSensorChanged(SensorEvent event) {
-//                ImageView heading = (ImageView)findViewById(R.id.compass);
-//
-//                /* Set Heading */
-//                double headingVal = Math.pow((Math.pow(event.values[0], 2) + Math.pow(event.values[1], 2) + Math.pow(event.values[2], 2)),0.5);
-//                heading.setRotation(event.values[1]);
-//
-//            }
-//
-//            @Override
-//            public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//            }
-//        };
-
         /* Altitude  Loop */
         altitudeEventListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                TextView alt = (TextView)findViewById(R.id.altitude);
-                float altitude = SensorManager.getAltitude(SensorManager.PRESSURE_STANDARD_ATMOSPHERE, event.values[0]);
-                alt.setText(Integer.toString((int)((altitude)*0.0328084)));
+                TextView alt = (TextView)findViewById(R.id.altitudeVal);
+                float altitude = SensorManager.getAltitude((float)1011.6, event.values[0]) * (float)3.281;
+
+                alt.setText(String.format("%04d", altitude).substring(0, 4));
             }
 
             @Override
@@ -173,21 +102,16 @@ public class MainActivity extends AppCompatActivity {
         return (average/history.length);
     }
 
-
-
     @Override
     protected void onResume(){
         super.onResume();
-        sensorManager.registerListener(accelerometerEventListener,accelerometerSensor,SensorManager.SENSOR_DELAY_FASTEST);
-        sensorManager.registerListener(magneticEventListener,magneticSensor,SensorManager.SENSOR_DELAY_FASTEST);
-        sensorManager.registerListener(altitudeEventListener,magneticSensor,SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(altitudeEventListener,altitudeSensor,SensorManager.SENSOR_DELAY_FASTEST);
         sensorManager.registerListener(orientationEventListener,orientationSensor,SensorManager.SENSOR_DELAY_FASTEST);
     }
+
     @Override
     protected void onPause(){
         super.onPause();
-        sensorManager.unregisterListener(accelerometerEventListener);
-        sensorManager.unregisterListener(magneticEventListener);
         sensorManager.unregisterListener(altitudeEventListener);
         sensorManager.unregisterListener(orientationEventListener);
     }
